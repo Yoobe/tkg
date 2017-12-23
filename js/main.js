@@ -71,7 +71,7 @@ $(function() {
 	appendAvailableLabelTable();
 
 	tkg.setKeycodeMap(keycode_map);
-	tkg.setLedMaps(binding_map, reverse_map, backlight_map);
+	tkg.setLedMaps(led_map, binding_map, ind_map, reverse_map, backlight_map);
 
 	// select keyboard
 	$('#keyboard-sel').change(function() {
@@ -233,6 +233,7 @@ $(function() {
 		updateAdvancedModeState();
 		updateBurnButtonState();
 		updateDownloadBinButtonState();
+		updateLedMapState();
 	});
 	updateAdvancedModeState();
 
@@ -571,7 +572,7 @@ function loadFirmwareInfo() {
 	_keyboard['firmware_info'] = list;
 	for (var i = 0; i < _keyboard['firmware_info'].length; i++) {
 		(function(i) {
-			$.getJSON("https://api.github.com/repos/kairyu/tkg-firmware/commits?path=" + _keyboard['firmware_info'][i]['filename'], function(response) {
+			$.getJSON("//api.github.com/repos/kairyu/tkg-firmware/commits?path=" + _keyboard['firmware_info'][i]['filename'], function(response) {
 				if (response[0] && response[0].commit && response[0].commit.committer) {
 					var iso_date = response[0].commit.committer.date;
 					if (iso_date) {
@@ -930,7 +931,7 @@ function adjustPopoverPosition($popover) {
 }
 
 function isKLEUrl(url) {
-	return /^(http:\/\/)?www\..*\/(layouts|gists)\/[0-9a-z]+$/.test(url);
+	return /^(https?:\/\/)?www\..*\/(layouts|gists)\/[0-9a-z]+$/.test(url);
 }
 
 function getKLERawData(url, success, fail) {
@@ -940,7 +941,7 @@ function getKLERawData(url, success, fail) {
 		var type = match[1];
 		var hash = match[2];
 		if (type == "layouts") {
-			$.get("http://www.keyboard-layout-editor.com.s3.amazonaws.com/layouts/" + hash,  function(data) {
+			$.get("agent.php?layouts=" + hash,  function(data) {
 				if (data.substr(0, 1) == '[' && data.substr(-1, 1) == ']') {
 					success.call(this, data.slice(1, -1));
 				}

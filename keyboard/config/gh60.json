@@ -4,7 +4,7 @@
 	"max_layers": 8,
 	"max_fns": 32,
 	"eep_size": 1024,
-	"eep_start": 17,
+	"eep_start": 19,
 	"matrix_rows": 5,
 	"matrix_cols": 14,
 	"physical_rows": 5,
@@ -126,6 +126,13 @@
 		"name": "Tricky Esc",
 		"description": "Pressing this key with shift key, you will get a ~(tilde)!",
 		"opt": []
+	},{
+		"name": "RGB LED",
+		"description": "Control RGB LEDs",
+		"opt": [
+			"Toggle", "Decrease Level", "Increase Level",
+			"Step", "Decrease Brightness", "Increase Brightness"
+		]
 	},{
 		"name": "Apple Fn",
 		"description": "Pressing directly: the key you selected, pressing with shift: Apple fn + the key you selected.",
